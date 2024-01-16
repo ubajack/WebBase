@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource
+    type="javax.sql.DataSource"
+    name="jdbc/DemoDS"
+    maxIdle="2"
+    maxTotal="20"
+    maxWaitMillis="5000"
+    driverClassName="com.mysql.cj.jdbc.Driver"
+    password="W9rQmFXx7253RsWeqoVs"
+    username="us5k0namwazkao04"
+    url="jdbc:mysql://us5k0namwazkao04:W9rQmFXx7253RsWeqoVs@brcvw1j4vpoew7qw0q9a-mysql.services.clever-cloud.com:3306/brcvw1j4vpoew7qw0q9a"/>
+</Context>

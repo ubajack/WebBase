@@ -1,0 +1,13 @@
+* {
+    font-family: monospace;
+    font-weight: 400;
+}
+
+h2 {
+    margin-bottom: auto;
+}
+
+.animals {
+    color: lightslategray;
+    font-style: italic;
+}
