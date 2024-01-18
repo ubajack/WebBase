@@ -14,7 +14,7 @@ import fr.eni.encheres.dal.ConnectionProvider;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
-	static Connection connection = null; //pas obligatoire
+	 Connection connection = null; //pas obligatoire
 	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values (?,?,?,?,?,?,?,?)";
 	//private static final String UPDATE_ARTICLE = "UPDATE ARTICLES set reference=?,marque=?,designation=?,prixUnitaire=?,qteStock=?,grammage=?,couleur=? where idArticle=?";
 	//private static final String DELETE_ARTICLE = "DELETE FROM ARTICLES where idArticle=?";
@@ -63,9 +63,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 //		return articlesVendus;
 //	}
 
-	
+
+
+
 	@Override
-	public void insert(ArticleVendu articleVendu) {
+	public ArticleVendu insert(ArticleVendu articleVendu) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(INSERT_ARTICLE,
 						Statement.RETURN_GENERATED_KEYS)) {
@@ -78,19 +80,21 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pstmt.setInt(6, articleVendu.getPrixVente());
 			pstmt.setInt(7, articleVendu.getVente().getNoUtilisateur());
 			pstmt.setInt(8, articleVendu.getCategorieArticle().getNoCategorie());
-		
-			int res = pstmt.executeUpdate();
-			if (res == 1) {
-				System.out.println("insertion réussi");
-				try (ResultSet rs = pstmt.getGeneratedKeys()) {
-					if (rs.next())
-						articleVendu.setNoArticle(rs.getInt(1));
-				}
+
+			pstmt.executeUpdate();
+
+			ResultSet rs = pstmt.getGeneratedKeys();
+
+			if (rs.next()) {
+				articleVendu.setnoArticle(rs.getInt(1));
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+			} catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+		return articleVendu;
 	}
+
+
 
 
 	@Override
