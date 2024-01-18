@@ -12,7 +12,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
     private static final String INSERT = "INSERT INTO CATEGORIES (libelle) values (?)";
     private static final String GET_BY_ID = "SELECT * from CATEGORIES where no_categorie=?";
-    private static final String SELECT_ALL = "SELECT * CATEGORIES";
+    private static final String SELECT_ALL = "SELECT * from CATEGORIES";
     private static final String UPDATE = "UPDATE CATEGORIES set libelle = ? where no_categorie=?";
     private static final String DELETE = "DELETE CATEGORIES where no_categorie=?";
 
@@ -44,15 +44,12 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
     public List<Categorie> selectAll() {
         List<Categorie> categories = new ArrayList<>();
         try (Connection connection = ConnectionProvider.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL)) {
+             Statement pstmt = connection.createStatement()) {
 
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery(SELECT_ALL);
 
             while(rs.next()) {
-                Categorie categorie = new Categorie();
-                categorie.setNoCategorie(rs.getInt("no_categorie"));
-                categorie.setLibelle(rs.getString("libelle"));
-                categories.add(categorie);
+                categories.add(getCategorieFromRs(rs));
             }
 
         } catch (SQLException e) {
@@ -60,6 +57,12 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         }
 
         return categories;
+    }
+
+    private Categorie getCategorieFromRs(ResultSet rs) throws SQLException {
+        Categorie cat = null;
+        cat = new Categorie(rs.getInt("no_categorie"),rs.getString("libelle") );
+        return cat;
     }
 
     @Override
@@ -89,8 +92,9 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         try (Connection connection = ConnectionProvider.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
 
-            pstmt.setString(1, categorie.getLibelle());
-            pstmt.setInt(2, categorie.getNoCategorie());
+            pstmt.setInt(1, categorie.getNoCategorie());
+            pstmt.setString(2, categorie.getLibelle());
+
 
         }catch (SQLException e) {
             throw new RuntimeException(e);

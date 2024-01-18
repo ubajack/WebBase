@@ -7,7 +7,7 @@ import java.util.List;
 public interface CategorieDAO {
     public Categorie selectById(Integer noCategorie);
 
-    public List<Categorie> selectAll();
+    public  List<Categorie> selectAll();
 
     public Categorie insert(Categorie a1);
 
