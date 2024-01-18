@@ -1,17 +1,17 @@
-package fr.eni.base;
+package fr.eni.encheres.servlet;
+
+import java.io.IOException;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
+public class ServeltTest2 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
-@WebServlet("/test")
-public class ServletTest extends HttpServlet {
-    @Override
+	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("essaie");
+        System.out.println("dfsdfq");
     }
 }
