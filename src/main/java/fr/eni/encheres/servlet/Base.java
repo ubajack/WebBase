@@ -1,4 +1,4 @@
-package fr.eni.base;
+package fr.eni.encheres.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
