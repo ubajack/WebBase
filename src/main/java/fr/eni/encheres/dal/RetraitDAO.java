@@ -1,6 +1,5 @@
 package fr.eni.encheres.dal;
 
-import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Retrait;
 
 import java.util.List;
@@ -10,7 +9,7 @@ public interface RetraitDAO {
 
     public List<Retrait> selectAll();
 
-    public void insert(Retrait a1);
+    public Retrait insert(Retrait a1);
 
     public void update(Retrait a);
 
