@@ -7,6 +7,7 @@ public class Retrait {
     private String ville;
 
 
+
     //Constructeurs
     public Retrait() {}
 

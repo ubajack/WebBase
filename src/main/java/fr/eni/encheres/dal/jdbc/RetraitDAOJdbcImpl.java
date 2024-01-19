@@ -2,6 +2,7 @@ package fr.eni.encheres.dal.jdbc;
 
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
+import fr.eni.encheres.dal.ArticleVenduDAO;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.RetraitDAO;
 
@@ -78,7 +79,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
     public Retrait insert(Retrait retrait) {
         try (Connection connection = ConnectionProvider.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(INSERT,
-                     Statement.RETURN_GENERATED_KEYS)) {
+                     PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, retrait.getRue() );
             pstmt.setString(2, retrait.getCodePostal() );

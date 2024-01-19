@@ -8,6 +8,11 @@ public class Categorie {
 	//Contructeurs
 	public Categorie() {}
 
+	public Categorie(String libelle) {
+		super();
+		this.libelle = libelle;
+	}
+
 	public Categorie(int noCategorie, String libelle) {
 		super();
 		this.noCategorie = noCategorie;

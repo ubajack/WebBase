@@ -23,7 +23,7 @@ public class ArticleVendu {
 
 	
 	public ArticleVendu(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur vente) {
+			int miseAPrix, int prixVente) {
 		super();
 		this.nom = nom;
 		this.description = description;
@@ -31,8 +31,6 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
-		this.categorieArticle = categorieArticle;
-		this.vente = vente;
 	}
 
 	public ArticleVendu(int noArticle, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,

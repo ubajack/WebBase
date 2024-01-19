@@ -6,65 +6,58 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bo.ArticleVendu;
-import fr.eni.encheres.dal.ArticleVenduDAO;
-import fr.eni.encheres.dal.ConnectionProvider;
+import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Retrait;
+import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.*;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
-	 Connection connection = null; //pas obligatoire
 	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS( nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values (?,?,?,?,?,?,?,?)";
-	//private static final String UPDATE_ARTICLE = "UPDATE ARTICLES set reference=?,marque=?,designation=?,prixUnitaire=?,qteStock=?,grammage=?,couleur=? where idArticle=?";
-	//private static final String DELETE_ARTICLE = "DELETE FROM ARTICLES where idArticle=?";
-	private static final String SELECT_BY_NO = "SELECT * FROM ARTICLES_VENDUS where no_article=?";
-	private static final String SELECT_ALL = "SELECT * FROM ARTICLES";
-	
+	private static final String SELECT_BY_ID = "select * from ARTICLES_VENDUS where no_article= ?";
+	private static final String SELECT_ALL = "select * from ARTICLES_VENDUS";
+	private static final String UPDATE = "update ARTICLES_VENDUS set nom_article = ?, description = ?, date_debut_encheres=?, date_fin_encheres= ?, prix_initial= ?, prix_vente= ?,  no_utilisateur= ?, no_categorie=? where no_article= ? ";
 
-//	public ArticleVendu selectById(int noArticle) throws DALException {
-//		ArticleVendu art = null;
-//		try (Connection connection = JdbcTools.getConnection();
-//				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_NO)) {
-//			pstmt.setInt(1, noArticle);
-//			try (ResultSet rs = pstmt.executeQuery()) {
-//				if (rs.next()) {
-//					art = new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
-//							rs.getString("date_debut_encheres"), rs.getString("date_fin_encheres"), rs.getDouble("prix_initial"), rs.getDouble("prix_vente"),
-//							rs.getInt("no_categorie"),rs.getInt("no_categorie");
-//					
-//				}
-//			}
-//
-//		} catch (SQLException e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//			throw new DALException("une erreur est survenue, veuillez nous excusez. Veuillez réessayer ultérieurement");
-//		}
-//		return art;
-//	}
-
-//	public List<ArticleVendu> selectAll() {
-//		List<ArticleVendu> articlesVendus = new ArrayList<ArticleVendu>();
-//
-//		try (Connection connection = ConnectionProvider.getConnection();
-//				Statement pstmt = connection.createStatement();
-//				ResultSet rs = pstmt.executeQuery(SELECT_ALL)) {
-//			
-//			while (rs.next()) {
-//				articlesVendus.add(new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
-//						rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"),
-//						rs.getInt("no_categorie")));
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return articlesVendus;
-//	}
+	private static final String DELETE = "DELETE ARTICLES_VENDUS where no_categorie=?";
 
 
+	@Override
+	public ArticleVendu selectById(Integer noArticle) {
+		ArticleVendu articleVendu = null;
+		UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
 
+		try(
+				Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_ID))
+
+		{
+			pstmt.setInt(1, noArticle);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articleVendu = articleBuilder(rs);
+
+			}
+
+		} catch(
+				SQLException e)
+
+		{
+			throw new RuntimeException(e);
+		}
+		return articleVendu;
+	}
+
+	@Override
+	public List<ArticleVendu> selectAll() {
+
+		return null;
+	}
 
 	@Override
 	public ArticleVendu insert(ArticleVendu articleVendu) {
@@ -94,94 +87,88 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		return articleVendu;
 	}
 
+	@Override
+	public void update(ArticleVendu articleVendu) {
+		try (Connection cnx = ConnectionProvider.getConnection(); PreparedStatement pstmt = cnx.prepareStatement(UPDATE)){
+
+			pstmt.setString(1, articleVendu.getNom());
+			pstmt.setString(2, articleVendu.getDescription());
+			pstmt.setDate(3, Date.valueOf(articleVendu.getDateDebutEncheres()));
+			pstmt.setDate(4, Date.valueOf(articleVendu.getDateFinEncheres()));
+			pstmt.setInt(5, articleVendu.getMiseAPrix());
+			pstmt.setInt(6, articleVendu.getPrixVente());
+			pstmt.setInt(7, articleVendu.getVente().getNoUtilisateur());
+			pstmt.setInt(8, articleVendu.getCategorieArticle().getNoCategorie());
+			pstmt.setInt(9, articleVendu.getNoArticle());
+
+			pstmt.executeUpdate();
 
 
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	@Override
-	public ArticleVendu selectById(Integer idArticle){
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(int noArticleVendu) {
+		try (Connection connection = ConnectionProvider.getConnection();
+			 PreparedStatement pstmt = connection.prepareStatement(DELETE)){
+
+			pstmt.setInt(1, noArticleVendu);
+			
+			pstmt.executeUpdate();
+
+
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public ArticleVendu articleBuilder(ResultSet rs) throws SQLException {
+
+		Utilisateur vendeur = this.getVendeurArticle(rs.getInt("no_utilisateur"));
+		Categorie categorie = this.getCategorieArticle(rs.getInt("no_categorie"));
+		
+
+		ArticleVendu articleVendu = new ArticleVendu();
+
+		articleVendu.setnoArticle(rs.getInt("no_article"));
+		articleVendu.setNom(rs.getString("nom_article"));
+		articleVendu.setDescription(rs.getString("description"));
+		articleVendu.setDateDebutEncheres((rs.getDate("date_debut_encheres").toLocalDate()));
+		articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+		articleVendu.setMiseAPrix(rs.getInt("prix_initial"));
+		articleVendu.setPrixVente(rs.getInt("prix_vente"));
+		articleVendu.setVente(vendeur);
+		articleVendu.setCategorieArticle(categorie);
+		
+
+		return articleVendu;
+
 	}
 
 
-	@Override
-	public List<ArticleVendu> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void update(ArticleVendu a){
-		// TODO Auto-generated method stub
+	private Categorie getCategorieArticle(int noCategorie) {
+		CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
+		Categorie categorieArticle = null;
+		try {
+			categorieArticle = categorieDAO.selectById(noCategorie);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return categorieArticle;
 		
 	}
 
-
-	@Override
-	public void delete(int a){
-		// TODO Auto-generated method stub
-		
+	private Utilisateur getVendeurArticle(int noUtilisateur) {
+		UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
+		Utilisateur vendeurArticle = null;
+		try {
+			vendeurArticle = utilisateurDAO.selectById(noUtilisateur);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vendeurArticle;
 	}
 
-//	@Override
-//	public ArticleVendu selectById(Integer idArticle) throws DALException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public void update(ArticleVendu a) throws DALException {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void delete(int a) throws DALException {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
-//	public void update(Article a) throws DALException {
-//		try (Connection connection = JdbcTools.getConnection();
-//				PreparedStatement pstmt = connection.prepareStatement(UPDATE_ARTICLE)) {
-//			pstmt.setString(1, a.getReference());
-//			pstmt.setString(2, a.getMarque());
-//			pstmt.setString(3, a.getDesignation());
-//			pstmt.setFloat(4, a.getPrixUnitaire());
-//			pstmt.setInt(5, a.getQteStock());
-//			pstmt.setInt(8, a.getIdArticle());
-//			if (a instanceof Ramette) {
-//				Ramette r = (Ramette) a;
-//				pstmt.setInt(6, r.getGrammage());
-//				pstmt.setNull(7, Types.VARCHAR);
-//			}
-//			if (a instanceof Stylo) {
-//				Stylo s = (Stylo) a;
-//				pstmt.setNull(6, Types.INTEGER);
-//				pstmt.setString(7, s.getCouleur());
-//			}
-//
-//			pstmt.executeUpdate();
-//			System.out.println("modification réussi");
-//
-//		} catch (SQLException e) {
-//			throw new DALException("Update article failed - " + a, e);
-//		}
-	
-//
-//	public void delete(int a) throws DALException {
-//		try (Connection connection = JdbcTools.getConnection();
-//				PreparedStatement pstmt = connection.prepareStatement(DELETE_ARTICLE)) {
-//			// l'intégrité référentielle s'occupe d'invalider la suppression
-//			// si l'article est référencé dans une ligne de commande
-//			pstmt.setInt(1, a);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			throw new DALException("Delete article failed - id=" + a, e);
-//		}
-//	}
-//
-//	
-//	}
 }
