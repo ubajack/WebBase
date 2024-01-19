@@ -7,7 +7,7 @@
 	<Resource name="jdbc/pool_cnx"
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 		type="javax.sql.DataSource"
-		url="jdbc:sqlserver://localhost:1433;databaseName=TEST_ENCHERES;trustServerCertificate=true"
+		url="jdbc:sqlserver://localhost:1433;databaseName=ENCHERES_DB;trustServerCertificate=true"
 		username="userEncheresBDD" password="Pa$$w0rd" 
 		maxTotal="100"
 		maxWaitMillis="10000" />
