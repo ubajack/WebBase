@@ -97,7 +97,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
     }
 
     @Override
-    public Retrait update(Retrait retrait) {
+    public void update(Retrait retrait) {
         try (Connection connection = ConnectionProvider.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
 
@@ -109,7 +109,6 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return retrait;
     }
 
     @Override
