@@ -119,7 +119,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			throw new RuntimeException(e);
 		}
 
-
 	}
 
 	@Override
