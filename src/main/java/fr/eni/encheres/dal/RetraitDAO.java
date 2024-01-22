@@ -11,7 +11,7 @@ public interface RetraitDAO {
 
     public Retrait insert(Retrait a1);
 
-    public Retrait update(Retrait a);
+    public void update(Retrait a);
 
     public void delete(int a);
 

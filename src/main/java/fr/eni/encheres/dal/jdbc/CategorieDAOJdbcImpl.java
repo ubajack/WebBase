@@ -90,7 +90,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
     }
 
     @Override
-    public Categorie update(Categorie categorie) {
+    public void update(Categorie categorie) {
         try (Connection connection = ConnectionProvider.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
 
@@ -102,7 +102,6 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return this.selectById(categorie.getNoCategorie());
     }
 
     @Override

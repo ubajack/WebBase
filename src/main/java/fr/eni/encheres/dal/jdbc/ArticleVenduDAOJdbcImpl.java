@@ -118,7 +118,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return articleVendu;
+
 
 	}
 
