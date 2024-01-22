@@ -52,7 +52,7 @@ public class Retrait {
         this.ville = ville;
     }
 
-    public int getNoRetrait() {
+    public Integer getNoRetrait() {
         return noRetrait;
     }
 
