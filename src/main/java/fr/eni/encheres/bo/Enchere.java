@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Enchere {
 
-    private int noEnchere;
+    private Integer noEnchere;
     private LocalDate dateEnchere;
     private int montantEnchere;
 
@@ -66,7 +66,7 @@ public class Enchere {
         this.remporte = remporte;
     }
 
-    public int getNoEnchere() {
+    public Integer getNoEnchere() {
         return noEnchere;
     }
 

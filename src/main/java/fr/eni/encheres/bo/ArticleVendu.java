@@ -50,7 +50,7 @@ public class ArticleVendu {
 
 	}
 
-	public int getNoArticle() {
+	public Integer getNoArticle() {
 		return noArticle;
 	}
 
