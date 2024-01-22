@@ -1,6 +1,5 @@
 package fr.eni.encheres.dal;
 
-import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
 
 import java.util.List;

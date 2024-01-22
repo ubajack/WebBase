@@ -2,7 +2,7 @@ package fr.eni.encheres.bo;
 
 public class Utilisateur {
 
-	private int noUtilisateur;
+	private Integer noUtilisateur;
 	private String pseudo;
 	private String nom;
 	private String prenom;
@@ -13,14 +13,14 @@ public class Utilisateur {
 	private String ville;
 	private String motDePasse;
 	private int credit;
-	private boolean administrateur = false;
+	private boolean administrateur;
 
 	public Utilisateur() {
 		super();
 	}
 
-	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administrateur) {
+	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administrateur) { 
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -36,11 +36,27 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
-	public int getNoUtilisateur() {
+	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostale, String ville, String motDePasse, boolean administrateur) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostale = codePostale;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.administrateur = administrateur;
+	}
+
+	public Integer getNoUtilisateur() {
 		return noUtilisateur;
 	}
 
-	public void setNoUtilisateur(int noUtilisateur) {
+	public void setNoUtilisateur(Integer noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
 

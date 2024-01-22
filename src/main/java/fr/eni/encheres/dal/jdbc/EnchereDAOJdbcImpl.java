@@ -18,7 +18,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
     @Override
     public void insert(Enchere a1) {
-
+    	
     }
 
     @Override
