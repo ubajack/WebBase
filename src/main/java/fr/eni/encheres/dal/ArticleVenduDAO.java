@@ -8,9 +8,9 @@ public interface ArticleVenduDAO {
 
 	public List<ArticleVendu> selectAll();
 
-	public void insert(ArticleVendu a1);
+	public ArticleVendu insert(ArticleVendu a1);
 
-	public void update(ArticleVendu a);
+	public ArticleVendu update(ArticleVendu a);
 
 	public void delete(int a);
 }
