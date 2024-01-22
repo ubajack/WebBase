@@ -10,7 +10,7 @@ public interface ArticleVenduDAO {
 
 	public ArticleVendu insert(ArticleVendu a1);
 
-	public void update(ArticleVendu a);
+	public ArticleVendu update(ArticleVendu a);
 
 	public void delete(int a);
 }
