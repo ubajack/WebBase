@@ -11,7 +11,7 @@ public interface CategorieDAO {
 
     public Categorie insert(Categorie a1);
 
-    public void update(Categorie a);
+    public Categorie update(Categorie a);
 
     public void delete(int a);
 

@@ -1,6 +1,5 @@
 package fr.eni.encheres.dal.jdbc;
 
-import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.RetraitDAO;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class RetraitDAOJdbcImpl implements RetraitDAO {
 
-    private static final String INSERT = "INSERT INTO RETRAITS (rue,code_postal,ville) values (?,?,?)";
+    private static final String INSERT = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) values (?,?,?,?)";
     private static final String GET_BY_ID = "SELECT * from RETRAITS where no_article=?";
     private static final String SELECT_ALL = "SELECT * RETRAITS";
     private static final String UPDATE = "UPDATE CATEGORIES set rue=?, code_postal=?, ville=? where no_article=?";
@@ -33,7 +32,6 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
         if (rs.next()) {
             retrait = new Retrait();
-            retrait.setNoRetrait(rs.getInt("no_retrait"));
             retrait.setRue(rs.getString("rue"));
             retrait.setCodePostal(rs.getString("code_postal"));
             retrait.setVille(rs.getString("ville"));
@@ -77,14 +75,12 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
     @Override
     public Retrait insert(Retrait retrait) {
         try (Connection connection = ConnectionProvider.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(INSERT,
-                     Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pstmt = connection.prepareStatement(INSERT)) {
 
-            pstmt.setString(1, retrait.getRue() );
-            pstmt.setString(2, retrait.getCodePostal() );
-            pstmt.setString(3, retrait.getVille() );
-
-
+            pstmt.setInt(1, retrait.getNoRetrait());
+            pstmt.setString(2, retrait.getRue());
+            pstmt.setString(3, retrait.getCodePostal());
+            pstmt.setString(4, retrait.getVille());
 
             pstmt.executeUpdate();
 
@@ -101,18 +97,19 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
     }
 
     @Override
-    public void update(Retrait retrait) {
+    public Retrait update(Retrait retrait) {
         try (Connection connection = ConnectionProvider.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
 
-            pstmt.setInt(1, retrait.getNoRetrait());
-            pstmt.setString(2, retrait.getRue());
-            pstmt.setString(3, retrait.getCodePostal());
-            pstmt.setString(4, retrait.getVille());
+            pstmt.setInt(4, retrait.getNoRetrait());
+            pstmt.setString(1, retrait.getRue());
+            pstmt.setString(2, retrait.getCodePostal());
+            pstmt.setString(3, retrait.getVille());
 
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return retrait;
     }
 
     @Override
