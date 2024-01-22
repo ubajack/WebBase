@@ -2,18 +2,14 @@ package fr.eni.encheres.bo;
 
 public class Categorie {
 	
-	private int noCategorie;
+	private Integer noCategorie;
 	private String libelle;
 	
 	//Contructeurs
 	public Categorie() {}
 
-	public Categorie(String libelle) {
-		super();
-		this.libelle = libelle;
-	}
 
-	public Categorie(int noCategorie, String libelle) {
+	public Categorie(Integer noCategorie, String libelle) {
 		super();
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;
@@ -24,7 +20,7 @@ public class Categorie {
 		return noCategorie;
 	}
 
-	public void setNoCategorie(int id) {
+	public void setNoCategorie(Integer id) {
 		this.noCategorie = id;
 	}
 
