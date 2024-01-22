@@ -11,7 +11,6 @@ import java.util.List;
 
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
-import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.*;
 
@@ -100,7 +99,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public void update(ArticleVendu articleVendu) {
+	public ArticleVendu update(ArticleVendu articleVendu) {
 		try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement(UPDATE)){
 
 			pstmt.setString(1, articleVendu.getNom());
@@ -119,6 +118,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return articleVendu;
+
 	}
 
 	@Override
