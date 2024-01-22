@@ -88,18 +88,19 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
     }
 
     @Override
-    public void update(Categorie categorie) {
+    public Categorie update(Categorie categorie) {
         try (Connection connection = ConnectionProvider.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
 
-            pstmt.setInt(1, categorie.getNoCategorie());
-            pstmt.setString(2, categorie.getLibelle());
-
+            pstmt.setInt(2, categorie.getNoCategorie());
+            pstmt.setString(1, categorie.getLibelle());
+            
+            pstmt.executeUpdate();
 
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        return this.selectById(categorie.getNoCategorie());
     }
 
     @Override
