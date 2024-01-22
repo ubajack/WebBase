@@ -99,7 +99,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public void update(ArticleVendu articleVendu) {
+	public ArticleVendu update(ArticleVendu articleVendu) {
 		try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement(UPDATE)){
 
 			pstmt.setString(1, articleVendu.getNom());
@@ -118,6 +118,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+
 
 	}
 
