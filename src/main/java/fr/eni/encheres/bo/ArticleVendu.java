@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class ArticleVendu {
 
-	private int noArticle;
+	private Integer noArticle;
 	private String nom;
 	private String description;
 	private LocalDate dateDebutEncheres;
@@ -15,7 +15,7 @@ public class ArticleVendu {
 	//Associations
 	private Categorie categorieArticle;
 	private Utilisateur vente;
-	private Retrait  lieuRetrait;
+
 	
 	
 	//Constructeurs
@@ -35,8 +35,8 @@ public class ArticleVendu {
 		this.vente = vente;
 	}
 
-	public ArticleVendu(int noArticle, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur vente, Retrait lieuRetrait) {
+	public ArticleVendu(Integer noArticle, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur vente) {
 		super();
 		this.noArticle = noArticle;
 		this.nom = nom;
@@ -47,21 +47,7 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.categorieArticle = categorieArticle;
 		this.vente = vente;
-		this.lieuRetrait = lieuRetrait;
-	}
-	
-	public ArticleVendu(int noArticle, String nom, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur vente) {
-		super();
-		this.noArticle = noArticle;
-		this.nom = nom;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
-		this.categorieArticle = categorieArticle;
-		this.vente = vente;
+
 	}
 
 	public int getNoArticle() {
@@ -69,12 +55,7 @@ public class ArticleVendu {
 	}
 
 
-	public void setNoArticle(int noArticle) {
-		this.noArticle = noArticle;
-	}
-
-
-	public void setnoArticle(int noArticle) {
+	public void setNoArticle(Integer noArticle) {
 		this.noArticle = noArticle;
 	}
 
@@ -159,14 +140,6 @@ public class ArticleVendu {
 	}
 
 
-	public Retrait getLieuRetrait() {
-		return lieuRetrait;
-	}
-
-
-	public void setLieuRetrait(Retrait lieuRetrait) {
-		this.lieuRetrait = lieuRetrait;
-	}
 
 
 	@Override

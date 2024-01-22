@@ -13,8 +13,11 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
     private static final String INSERT = "INSERT INTO CATEGORIES (libelle) values (?)";
     private static final String GET_BY_ID = "SELECT * from CATEGORIES where no_categorie=?";
     private static final String SELECT_ALL = "SELECT * from CATEGORIES";
-    private static final String UPDATE = "UPDATE CATEGORIES set libelle = ? where no_categorie=?";
+    private static final String UPDATE = "UPDATE CATEGORIES set libelle=? where no_categorie=?";
     private static final String DELETE = "DELETE CATEGORIES where no_categorie=?";
+
+    private static final String DELETE_ALL = "DELETE * from CATEGORIES";
+
 
 
 
@@ -30,7 +33,6 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
             if(rs.next()) {
                 cat= new Categorie();
-                cat.setNoCategorie(rs.getInt("no_categorie"));
                 cat.setLibelle(rs.getString("libelle"));
             }
 
@@ -44,9 +46,9 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
     public List<Categorie> selectAll() {
         List<Categorie> categories = new ArrayList<>();
         try (Connection connection = ConnectionProvider.getConnection();
-             Statement pstmt = connection.createStatement()) {
+             Statement stmt = connection.createStatement()) {
 
-            ResultSet rs = pstmt.executeQuery(SELECT_ALL);
+            ResultSet rs = stmt.executeQuery(SELECT_ALL);
 
             while(rs.next()) {
                 categories.add(getCategorieFromRs(rs));
@@ -118,4 +120,5 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
         }
 
     }
+
 }
