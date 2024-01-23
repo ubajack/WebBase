@@ -58,6 +58,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			PreparedStatement stmt = connection.prepareStatement(SELECT_ALL);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
+			
 				Utilisateur utilisateur = utilisateurDAO.selectById(rs.getInt("no_utilisateur"));
 				Categorie categorie = categorieDAO.selectById(rs.getInt("no_categorie"));
 				a = new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), categorie, utilisateur);
