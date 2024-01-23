@@ -1,0 +1,13 @@
+* {
+    font-family: monospace;
+    font-weight: 400;
+}
+
+.data {
+    margin-bottom: 16px;
+}
+
+.error {
+    color: red;
+    font-size: smaller;
+}
