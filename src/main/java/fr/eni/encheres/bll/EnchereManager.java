@@ -51,7 +51,7 @@ public class EnchereManager {
         if(enchere==null){
             throw new BLLException("Categorie null");
         }
-        if(enchere.getDateEnchere()==null || enchere.getDateEnchere().equals(LocalDate.now())) {
+        if(enchere.getDateEnchere()==null || !enchere.getDateEnchere().equals(LocalDate.now())) {
             sb.append("La date de l'encheres est obligatoire et ne pas être supérieur a la date du jour.\n");
             valide = false;
         }
