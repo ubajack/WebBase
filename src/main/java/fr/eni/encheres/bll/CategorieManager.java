@@ -27,7 +27,6 @@ public class CategorieManager {
         categorieDAO.insert(categorie);
     }
     public void selectCategorieById(Categorie categorie) throws BLLException {
-        validerCategorie(categorie);
         categorieDAO.selectById(categorie.getNoCategorie());
     }
 

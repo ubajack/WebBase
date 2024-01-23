@@ -28,7 +28,6 @@ public class ArticleVenduManager {
         articleVenduDAO.insert(articleVendu);
     }
     public void selectArticleVenduById(ArticleVendu articleVendu) throws BLLException {
-        validerArticleVendu(articleVendu);
         articleVenduDAO.selectById(articleVendu.getNoArticle());
     }
 
