@@ -4,7 +4,6 @@ import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.dal.CategorieDAO;
 import fr.eni.encheres.dal.DAOFactory;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class CategorieManager {
@@ -30,16 +29,18 @@ public class CategorieManager {
         categorieDAO.selectById(categorie.getNoCategorie());
     }
 
-    public void updateCategorie(Categorie categorie) throws BLLException {
+    public Categorie updateCategorie(Categorie categorie) throws BLLException {
         validerCategorie(categorie);
         categorieDAO.update(categorie);
+        return categorie;
     }
 
-    public void deleteCategorie(Categorie categorie) throws BLLException {
+    public Categorie deleteCategorie(Categorie categorie) throws BLLException {
         if( categorie == null|| categorie.getNoCategorie()==null) {
             throw new BLLException("Erreur lors de la suppression, la categorie ou son ID est null.");
         }
         categorieDAO.delete(categorie.getNoCategorie());
+        return categorie;
     }
 
 
