@@ -15,33 +15,31 @@ public class Enchere {
     private boolean remporte = false;
 
 
-    
 
+    public Enchere(Integer noEnchere) {
+        this.noEnchere = noEnchere;
+    }
+
+    public Enchere(Integer noEnchere, LocalDateTime dateEnchere, int montantEnchere, ArticleVendu article, Utilisateur encherisseur) {
+        super();
+        this.noEnchere = noEnchere;
+        this.dateEnchere = dateEnchere;
+        this.montantEnchere = montantEnchere;
+        this.article = article;
+        this.encherisseur = encherisseur;
+    }
+    public Enchere(LocalDateTime dateEnchere, int montantEnchere, ArticleVendu article, Utilisateur encherisseur) {
+        super();
+        this.dateEnchere = dateEnchere;
+        this.montantEnchere = montantEnchere;
+        this.article = article;
+        this.encherisseur = encherisseur;
+    }
 	public Enchere(Integer noEnchere, int montantEnchere) {
 		super();
 		this.noEnchere = noEnchere;
 		this.montantEnchere = montantEnchere;
 	}
-
-
-	public Enchere(Integer noEnchere, LocalDateTime dateEnchere, int montantEnchere) {
-		super();
-		this.noEnchere = noEnchere;
-		this.dateEnchere = dateEnchere;
-		this.montantEnchere = montantEnchere;
-	}
-
-
-	public Enchere(Integer noEnchere, LocalDateTime dateEnchere , int montantEnchere, ArticleVendu article,
-			Utilisateur encherisseur) {
-		super();
-		this.noEnchere = noEnchere;
-		this.dateEnchere = dateEnchere;
-		this.montantEnchere = montantEnchere;
-		this.article = article;
-		this.encherisseur = encherisseur;
-	}
-   
 
 	// Getters & Setters
     public LocalDateTime getDateEnchere() {

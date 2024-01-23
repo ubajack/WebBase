@@ -5,11 +5,20 @@ public class Retrait {
     private String rue;
     private String codePostal;
     private String ville;
+    private ArticleVendu article;
 
 
 
     //Constructeurs
     public Retrait() {}
+
+    public Retrait(Integer noRetrait, String rue, String codePostal, String ville, ArticleVendu article) {
+        this.noRetrait = noRetrait;
+        this.rue = rue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.article = article;
+    }
 
     public Retrait(Integer noRetrait, String rue, String codePostal, String ville) {
         super();
@@ -28,6 +37,13 @@ public class Retrait {
 
 
     //Getters & Setters
+    public ArticleVendu getArticle() {
+        return article;
+    }
+
+    public void setArticle(ArticleVendu article) {
+        this.article = article;
+    }
     public String getRue() {
         return rue;
     }

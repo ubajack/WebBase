@@ -36,6 +36,21 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+					   String rue, String codePostale, String ville, String motDePasse, boolean administrateur) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostale = codePostale;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.administrateur = administrateur;
+	}
+
 	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostale, String ville, String motDePasse, boolean administrateur) {
 		super();
@@ -50,6 +65,11 @@ public class Utilisateur {
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.administrateur = administrateur;
+	}
+
+	public Utilisateur(Integer noUtilisateur) {
+		super();
+		this.noUtilisateur = noUtilisateur;
 	}
 
 	public Integer getNoUtilisateur() {

@@ -32,16 +32,18 @@ public class UtilisateurManager {
         utilisateurDAO.selectById(utilisateur.getNoUtilisateur());
     }
 
-    public void updateUtilisateur(Utilisateur utilisateur) throws BLLException {
+    public Utilisateur updateUtilisateur(Utilisateur utilisateur) throws BLLException {
         validerUtilisateur(utilisateur);
         utilisateurDAO.update(utilisateur);
+        return utilisateur;
     }
 
-    public void deleteUtilisateur(Utilisateur utilisateur) throws BLLException {
+    public Utilisateur deleteUtilisateur(Utilisateur utilisateur) throws BLLException {
         if( utilisateur == null|| utilisateur.getNoUtilisateur()==null) {
             throw new BLLException("Erreur lors de la suppression, l'utilisateur ou son ID est null.");
         }
         utilisateurDAO.delete(utilisateur.getNoUtilisateur());
+        return utilisateur;
     }
 
 
@@ -66,6 +68,8 @@ public class UtilisateurManager {
             valide = false;
         }
 
+        System.out.println(utilisateur.getPseudo());
+
         if(utilisateur.getNom()==null || utilisateur.getNom().trim().length()==0|| utilisateur.getNom().length()>30) {
             sb.append("Le nom de l'utilisateur est obligatoire et ne pas depasser 30 caractères.\n");
             valide = false;
@@ -74,14 +78,20 @@ public class UtilisateurManager {
         if(utilisateur.getPrenom()==null || utilisateur.getPrenom().trim().length()==0|| utilisateur.getPrenom().length()>30) {
             sb.append("Le prenom de l'utilisateur est obligatoire et ne pas depasser 30 caractères.\n");
             valide = false;
+            System.out.println("prenom"+valide);
+
         }
+        System.out.println(utilisateur.getPrenom());
 
         //Utilisation d'un regex pour vérifier si l'email correspond au format.
-        if(utilisateur.getEmail() == null || !utilisateur.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
+        if(utilisateur.getEmail() == null || !utilisateur.getEmail().matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
             sb.append("L'email de l'utilisateur est obligatoire, et doit être valide.\n");
             valide = false;
+            System.out.println("email"+valide);
         }
-        
+        System.out.println(utilisateur.getEmail());
+
+
         if (isEmailAlreadyTaken(utilisateur.getEmail())) {
             sb.append("L'email est déjà utilisé. Veuillez choisir une autre adresse email.\n");
             valide = false;
@@ -91,6 +101,8 @@ public class UtilisateurManager {
         if (!utilisateur.getTelephone().matches("(0|\\+33|0033)[1-9][0-9]{8}")) {
             sb.append("Le téléphone doit correspondre au format français.\n");
             valide = false;
+            System.out.println("telephone"+valide);
+
         }
 
         if(utilisateur.getRue()==null || utilisateur.getRue().trim().length()==0|| utilisateur.getRue().length()>30) {
