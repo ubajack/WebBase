@@ -12,7 +12,7 @@
         <h2>You are connected</h2>
         <form action="${pageContext.request.contextPath}/article" method="post" enctype="multipart/form-data">
             <div class="data">
-                <label for="image">Please, choose an image:</label>
+                <label for="image">Choose an image, please:</label>
                 <input type="file" id="image" name="image" accept="image/png, image/jpeg" />
             </div>
             <p class="error">${error}</p>
