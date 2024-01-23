@@ -54,8 +54,10 @@ public class UtilisateurManager {
         if(utilisateur==null){
             throw new BLLException("Retrait null");
         }
-        if(utilisateur.getPseudo()==null || utilisateur.getPseudo().trim().length()==0|| utilisateur.getPseudo().length()>30) {
-            sb.append("Le pseudo de l'utilisateur est obligatoire et ne pas depasser 30 caractères.\n");
+
+        //Utilisation d'un regex pour vérifier si le pseudo contient que des caractères alphanumériques.
+        if (utilisateur.getPseudo() == null || utilisateur.getPseudo().trim().length() == 0 || utilisateur.getPseudo().length() > 30 || !utilisateur.getPseudo().matches("^[a-zA-Z0-9]+$")) {
+            sb.append("Le pseudo de l'utilisateur est obligatoire, ne doit pas dépasser 30 caractères, et ne doit contenir que des caractères alphanumériques.\n");
             valide = false;
         }
         if(utilisateur.getNom()==null || utilisateur.getNom().trim().length()==0|| utilisateur.getNom().length()>30) {
@@ -67,11 +69,13 @@ public class UtilisateurManager {
             valide = false;
         }
 
-        if(utilisateur.getEmail() == null || utilisateur.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
+        //Utilisation d'un regex pour vérifier si l'email correspond au format.
+        if(utilisateur.getEmail() == null || !utilisateur.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
             sb.append("L'email de l'utilisateur est obligatoire, et doit être valide.\n");
             valide = false;
         }
 
+        //Utilisation d'un regex pour vérifier si le téléphone correspondre au format téléphone français.
         if (!utilisateur.getTelephone().matches("(0|\\+33|0033)[1-9][0-9]{8}")) {
             sb.append("Le téléphone doit correspondre au format français.\n");
             valide = false;
