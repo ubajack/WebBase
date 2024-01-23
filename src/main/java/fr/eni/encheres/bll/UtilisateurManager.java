@@ -60,10 +60,17 @@ public class UtilisateurManager {
             sb.append("Le pseudo de l'utilisateur est obligatoire, ne doit pas dépasser 30 caractères, et ne doit contenir que des caractères alphanumériques.\n");
             valide = false;
         }
+
+        if (isPseudoAlreadyTaken(utilisateur.getPseudo())) {
+            sb.append("Le pseudo est déjà utilisé. Veuillez choisir un autre pseudo.\n");
+            valide = false;
+        }
+
         if(utilisateur.getNom()==null || utilisateur.getNom().trim().length()==0|| utilisateur.getNom().length()>30) {
             sb.append("Le nom de l'utilisateur est obligatoire et ne pas depasser 30 caractères.\n");
             valide = false;
         }
+
         if(utilisateur.getPrenom()==null || utilisateur.getPrenom().trim().length()==0|| utilisateur.getPrenom().length()>30) {
             sb.append("Le prenom de l'utilisateur est obligatoire et ne pas depasser 30 caractères.\n");
             valide = false;
@@ -72,6 +79,11 @@ public class UtilisateurManager {
         //Utilisation d'un regex pour vérifier si l'email correspond au format.
         if(utilisateur.getEmail() == null || !utilisateur.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
             sb.append("L'email de l'utilisateur est obligatoire, et doit être valide.\n");
+            valide = false;
+        }
+        
+        if (isEmailAlreadyTaken(utilisateur.getEmail())) {
+            sb.append("L'email est déjà utilisé. Veuillez choisir une autre adresse email.\n");
             valide = false;
         }
 
@@ -113,4 +125,45 @@ public class UtilisateurManager {
 
     }
 
+    //La méthode utilisateurs.stream() transforme la liste utilisateurs en un flux (stream) d'objets
+    private boolean isEmailAlreadyTaken(String email) {
+        List<Utilisateur> utilisateurs = utilisateurDAO.selectAll();
+
+        // Vérifiez si l'email est déjà pris par un autre utilisateur
+        return utilisateurs.stream().anyMatch(utilisateur -> utilisateur.getEmail() != null && utilisateur.getEmail().equals(email));
+    }
+
+
+    public boolean isPseudoAlreadyTaken(String pseudo) {
+        // Récupère la liste de tous les utilisateurs depuis la base de données
+        List<Utilisateur> utilisateurs = utilisateurDAO.selectAll();
+
+        // Crée un flux (stream) à partir de la liste d'utilisateurs
+        // Un stream est une séquence d'éléments sur laquelle vous pouvez effectuer différentes opérations
+        return utilisateurs.stream()
+
+                // Vérifie si au moins un utilisateur dans le flux (stream) correspond à la condition donnée
+                .anyMatch(utilisateur ->
+                        // Vérifie si le pseudo de l'utilisateur actuel n'est pas nul
+                        utilisateur.getPseudo() != null &&
+
+                                // Vérifie si le pseudo de l'utilisateur actuel est égal au pseudo fourni en argument
+                                utilisateur.getPseudo().equals(pseudo)
+                );
+    }
+
+
+        //DEUXIEME méthode pour véririfier qu'un éléments n'existe pas déjà =
+
+//    private boolean isEmailAlreadyTaken(String email) {
+//        List<Utilisateur> utilisateurs = utilisateurDAO.selectAll();
+//
+//        // Vérifiez si l'email est déjà pris par un autre utilisateur
+//        for (Utilisateur utilisateur : utilisateurs) {
+//            if (utilisateur.getEmail() != null && utilisateur.getEmail().equals(email)) {
+//                return true; // L'email est déjà pris
+//            }
+//        }
+//        return false; // L'email n'est pas pris
+//    }
 }
