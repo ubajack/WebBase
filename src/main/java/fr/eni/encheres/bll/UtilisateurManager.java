@@ -29,7 +29,6 @@ public class UtilisateurManager {
         utilisateurDAO.insert(utilisateur);
     }
     public void selectUtilisateurById(Utilisateur utilisateur) throws BLLException {
-        validerUtilisateur(utilisateur);
         utilisateurDAO.selectById(utilisateur.getNoUtilisateur());
     }
 

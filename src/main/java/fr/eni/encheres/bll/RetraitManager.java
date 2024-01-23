@@ -27,7 +27,6 @@ public class RetraitManager {
         retraitDAO.insert(retrait);
     }
     public void selectRetraitById(Retrait retrait) throws BLLException {
-        validerRetrait(retrait);
         retraitDAO.selectById(retrait.getNoRetrait());
     }
 

@@ -27,7 +27,6 @@ public class EnchereManager {
         enchereDAO.insert(enchere);
     }
     public void selectEnchereById(Enchere enchere) throws BLLException {
-        validerEnchere(enchere);
         enchereDAO.selectById(enchere.getNoEnchere());
     }
 
