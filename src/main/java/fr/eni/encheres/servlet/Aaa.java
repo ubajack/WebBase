@@ -1,12 +1,18 @@
 package fr.eni.encheres.servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.ArticleVenduDAO;
 import fr.eni.encheres.dal.CategorieDAO;
 import fr.eni.encheres.dal.DAOFactory;
+import fr.eni.encheres.dal.EnchereDAO;
 import fr.eni.encheres.dal.UtilisateurDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -46,6 +52,8 @@ public class Aaa extends HttpServlet {
 
 		CategorieDAO categorie = DAOFactory.getCategorieDAO();
 		UtilisateurDAO user = DAOFactory.getUtilisateurDAO();
+		EnchereDAO enchere = DAOFactory.getEnchereDAO();
+		ArticleVenduDAO articleVendu = DAOFactory.getArticleVenduDAO();
 		
 			// Attention si on utilise un contructeur qui ne prend pas tous les champs
 			// et donc ne peut pas restituer un champs qui n'exciste pas. EX user1
@@ -58,6 +66,10 @@ public class Aaa extends HttpServlet {
 		//Utilisateur user4 = new Utilisateur("ckcnjkcqjkcbnvdkj", "b", "c", "d", "e", "f", "g", "h", "i");
 		//Utilisateur user5 = new Utilisateur("irlandoule", "hay", "axel", "email", "07960432", "ruel", "49494", "brol", "mpis");
 		//Utilisateur leme = new Utilisateur(0, LEGACY_DO_HEAD, LEGACY_DO_HEAD, LEGACY_DO_HEAD, LEGACY_DO_HEAD, LEGACY_DO_HEAD, LEGACY_DO_HEAD, LEGACY_DO_HEAD, LEGACY_DO_HEAD, LEGACY_DO_HEAD, 0, false)
+		
+		
+		
+		//enchere.insert(enchere1);
 		
 		//INSERTION UTILISATEUR
 //		int numerUser =user.insert(user6);		
@@ -75,8 +87,8 @@ public class Aaa extends HttpServlet {
 //		List<Utilisateur>utilisateurs = user.selectAll(); 
 //		System.out.println("Les utilisateurs " + utilisateurs.toString());
 //				
-		Utilisateur useID = user.selectById(48);
-		System.out.println("l'utilisateur choisi est :" + useID.toString());
+//		Utilisateur useID = user.selectById(48);
+//		System.out.println("l'utilisateur choisi est :" + useID.toString());
 		
 		//user.delete(40);
 		//UPDATE 
@@ -85,8 +97,8 @@ public class Aaa extends HttpServlet {
 //		user.update(user6);
 //		System.out.println("apres modif" + user6.toString());
 		
-		Categorie a2 = new Categorie("dsfsdf");
-		Categorie a3 = new Categorie("dsrtgdgfdf");
+//		Categorie cat1 = new Categorie(1, "dsfsdf");
+//		Categorie a3 = new Categorie(null, "dsrtgdgfdf");
 		
 		
 //		categorie.insert(a2);
@@ -96,18 +108,37 @@ public class Aaa extends HttpServlet {
 //		System.out.println(a2.getNoCategorie());
 		
 
-		
+	
 		
 		
 
 		// Instanciation du jeu d'essai
-//		Categorie a2 = new Categorie(1,"dsfsdf");
+		Categorie cat1 = new Categorie(1,"dsfsdf");
+//		categorie.insert(cat1);
 //		Categorie a3 = new Categorie(2,"dsrtgdgfdf");
 //		
 //
 //		System.out.println("Ajout des articles... ");
-//		categorie.insert(a2);
-//		categorie.insert(a3);
+//		categorie.insert(cat1);
+		
+		ArticleVendu Art1 = new ArticleVendu(5, "brosse", "nettoyageCul", LocalDate.now(), LocalDate.now().plusWeeks(2), 3, 3, cat1, user6);
+//		articleVendu.insert(Art1);
+		
+		Enchere enchere1 = new Enchere(9, LocalDateTime.now(), 50, Art1, user3);
+//		enchere.insert(enchere1);
+		
+		enchere.delete(9);
+//		System.out.println("avant modif" + enchere1.toString());
+//		enchere1.setMontantEnchere(200);
+//		enchere.update(enchere1);
+//		System.out.println("apres modif" + enchere1.toString());
+		
+//		List<Enchere>utilisateurs = enchere.selectAll(); 
+//		System.out.println("Les utilisateurs " + utilisateurs.toString());
+//		Enchere auctionID = enchere.selectById(4);
+//		System.out.println("l'utilisateur choisi est :" + auctionID.toString());
+		//		categorie.insert(a3);
+		
 //		
 //		categorie.delete();
 //

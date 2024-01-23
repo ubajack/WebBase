@@ -10,9 +10,9 @@ public interface EnchereDAO {
 
     public List<Enchere> selectAll();
 
-    public void insert(Enchere a1);
+    public Enchere insert(Enchere auctionInsert);
 
-    public void update(Enchere a);
+    public void update(Enchere auctionModif);
 
-    public void delete(int a);
+    public void delete(Integer noEnchere);
 }

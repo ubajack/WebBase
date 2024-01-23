@@ -25,7 +25,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String DELETE_UTILISATEUR = "DELETE from UTILISATEURS where no_utilisateur = ?";
 	
 	@Override
-	public int insert(Utilisateur use) {
+	public Utilisateur insert(Utilisateur use) {
 			//int key = -1;
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(INSERT_UTILISATEUR,
@@ -54,7 +54,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			e.printStackTrace();
 			
 		}System.out.println("clé obtenu" + use.getNoUtilisateur());
-		return use.getNoUtilisateur();
+		return use;
 	}
 
 	@Override
@@ -69,14 +69,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			ResultSet rs = pstmt.executeQuery();
 				if(rs.next()) {
 					userSelectID = getUtilisateurFromRs(rs);
-				}
+				}return userSelectID;
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return userSelectID;
+		return null;
 	}
 //	public Utilisateur selectById(Integer noUtilisateur) {
 //		 try(Connection con = ConnectionProvider.getConnection();PreparedStatement stmt = con.prepareStatement(SQL_SELECT_BY_ID)) {
@@ -223,6 +223,5 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	        } else {
 	            pstmt.setNull(5, Types.VARCHAR);
 	        }
-	}
-		
+	}	
 }
