@@ -5,7 +5,7 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
 
-	public int insert(Utilisateur use);
+	public Utilisateur insert(Utilisateur use);
 	
 	public Utilisateur selectById(Integer noUtilisateur);
 	
@@ -15,6 +15,6 @@ public interface UtilisateurDAO {
 	public void update(Utilisateur use);
 	
 	public void delete (Integer noUtilisateur) ;
-
+	
 	//void update(Integer noUtilisateur);
 }
