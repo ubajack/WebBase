@@ -14,7 +14,7 @@ public class ArticleVendu {
 	
 	//Associations
 	private Categorie categorieArticle;
-	private Utilisateur vente;
+	private Utilisateur utilisateur;
 
 	
 	
@@ -23,7 +23,7 @@ public class ArticleVendu {
 
 	
 	public ArticleVendu(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur vente) {
+			int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur utilisateur) {
 		super();
 		this.nom = nom;
 		this.description = description;
@@ -32,11 +32,11 @@ public class ArticleVendu {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.categorieArticle = categorieArticle;
-		this.vente = vente;
+		this.utilisateur = utilisateur;
 	}
 
 	public ArticleVendu(Integer noArticle, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur vente) {
+			int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur utilisateur) {
 		super();
 		this.noArticle = noArticle;
 		this.nom = nom;
@@ -46,11 +46,11 @@ public class ArticleVendu {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.categorieArticle = categorieArticle;
-		this.vente = vente;
+		this.utilisateur = utilisateur;
 
 	}
 
-	public int getNoArticle() {
+	public Integer getNoArticle() {
 		return noArticle;
 	}
 
@@ -130,13 +130,13 @@ public class ArticleVendu {
 	}
 
 
-	public Utilisateur getVente() {
-		return vente;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
 
-	public void setVente(Utilisateur vente) {
-		this.vente = vente;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 

@@ -83,7 +83,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
  			pstmt.setDate(4, Date.valueOf(articleVendu.getDateFinEncheres()));
 			pstmt.setInt(5, articleVendu.getMiseAPrix());
 			pstmt.setInt(6, articleVendu.getPrixVente());
-			pstmt.setInt(7, articleVendu.getVente().getNoUtilisateur());
+			pstmt.setInt(7, articleVendu.getUtilisateur().getNoUtilisateur());
 			pstmt.setInt(8, articleVendu.getCategorieArticle().getNoCategorie());
 
 			pstmt.executeUpdate();
@@ -100,7 +100,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public ArticleVendu update(ArticleVendu articleVendu) {
+	public void update(ArticleVendu articleVendu) {
 		try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement(UPDATE)){
 
 			pstmt.setString(1, articleVendu.getNom());
@@ -109,7 +109,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pstmt.setDate(4, Date.valueOf(articleVendu.getDateFinEncheres()));
 			pstmt.setInt(5, articleVendu.getMiseAPrix());
 			pstmt.setInt(6, articleVendu.getPrixVente());
-			pstmt.setInt(7, articleVendu.getVente().getNoUtilisateur());
+			pstmt.setInt(7, articleVendu.getUtilisateur().getNoUtilisateur());
 			pstmt.setInt(8, articleVendu.getCategorieArticle().getNoCategorie());
 			pstmt.setInt(9, articleVendu.getNoArticle());
 
