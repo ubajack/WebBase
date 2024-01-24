@@ -1,4 +1,4 @@
-package fr.eni.encheres.servlet;
+package fr.eni.encheres.servlet.TESTcrud;
 
 import java.io.IOException;
 

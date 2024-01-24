@@ -1,13 +1,8 @@
-package fr.eni.encheres.servlet;
+package fr.eni.encheres.servlet.TESTcrud;
 
-import fr.eni.encheres.bll.ArticleVenduManager;
 import fr.eni.encheres.bll.BLLException;
-import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bo.Categorie;
-import fr.eni.encheres.bo.Utilisateur;
-import fr.eni.encheres.dal.CategorieDAO;
-import fr.eni.encheres.dal.DAOFactory;
-import fr.eni.encheres.dal.UtilisateurDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,16 +10,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.List;
 
-@WebServlet("/testA")
-public class ServletTestArticleVendu extends HttpServlet {
+@WebServlet("/testC")
+public class ServletTestCategorie extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor.
      */
-    public ServletTestArticleVendu() {
+    public ServletTestCategorie() {
         // TODO Auto-generated constructor stub
     }
 
@@ -32,22 +27,16 @@ public class ServletTestArticleVendu extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateurDAO();
-        CategorieDAO categorieDAO = DAOFactory.getCategorieDAO();
 
+		//Initialisation CATEGORIE
+		Categorie categorie = new Categorie(1040,"qsdqsd");
+        Categorie nocategorie = new Categorie(1040);
 
-        //Initialisation CATEGORIE
-        Categorie categorie = new Categorie(1038);
-        Utilisateur utilisateur = new Utilisateur(6);
+        CategorieManager categorieManager = new CategorieManager();
 
-        ArticleVendu articleVendu = new ArticleVendu(1,"pc","test insertion multiple", LocalDate.now(),LocalDate.now().plusWeeks(2),200,700,categorie,utilisateur);
-        ArticleVendu noarticleVendu = new ArticleVendu(1008);
-
-        ArticleVenduManager articleVenduManager = new ArticleVenduManager();
-//
 //		//INSERT
 //        try {
-//            articleVenduManager.insertArticleVendu(articleVendu);
+//            categorieManager.insertCategorie(categorie);
 //        } catch (BLLException e) {
 //            throw new RuntimeException(e);
 //        }
@@ -55,7 +44,7 @@ public class ServletTestArticleVendu extends HttpServlet {
 
 //		//SELECT BY ID
 //        try {
-//			ArticleVendu essai = articleVenduManager.selectArticleVenduById(?);
+//			Categorie essai = categorieManager.selectCategorieById(?);
 //			System.out.println(essai);
 //        } catch (BLLException e) {
 //            throw new RuntimeException(e);
@@ -63,13 +52,13 @@ public class ServletTestArticleVendu extends HttpServlet {
 
 
 //		//SELECT ALL
-//        List<ArticleVendu> essai = articleVenduManager.selectAllArticleVendu();
+//        List<Categorie> essai = categorieManager.selectAllCategorie();
 //		System.out.println(essai);
 
 
 //		//UPDATE
 //        try {
-//            ArticleVendu essai = articleVenduManager.updateArticleVendu(articleVendu);
+//            Categorie essai = categorieManager.updateCategorie(categorie);
 //			System.out.println(essai);
 //        } catch (BLLException e) {
 //            throw new RuntimeException(e);
@@ -78,11 +67,17 @@ public class ServletTestArticleVendu extends HttpServlet {
 
 //		//DELETE
 //        try {
-//            ArticleVendu essai = articleVenduManager.deleteArticleVendu(noarticleVendu);
+//            Categorie essai = categorieManager.deleteCategorie(nocategorie);
 //			System.out.println(essai);
 //        } catch (BLLException e) {
 //            throw new RuntimeException(e);
 //        }
+
+
+
+
+
+
 
         response.getWriter().append("Served at: ").append(request.getContextPath());
 

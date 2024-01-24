@@ -1,4 +1,4 @@
-package fr.eni.encheres.servlet;
+package fr.eni.encheres.servlet.TESTcrud;
 
 import fr.eni.encheres.bll.ArticleVenduManager;
 import fr.eni.encheres.bll.BLLException;
