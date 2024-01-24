@@ -40,8 +40,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 						Statement.RETURN_GENERATED_KEYS))
 
 		{	setEncheres(pstmt, auctionInsert); // factorisation de code
-			pstmt.setInt(3, auction.getConcerne().getNoArticle());
-			pstmt.setInt(4, auction.getEncherisseur().getNoUtilisateur());
+			pstmt.setInt(3, auctionInsert.getConcerne().getNoArticle());
+			pstmt.setInt(4, auctionInsert.getEncherisseur().getNoUtilisateur());
 			
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
