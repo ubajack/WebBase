@@ -14,5 +14,7 @@
     <a href="${pageContext.request.contextPath}/login">Login page</a>
     <br>
     <a href="${pageContext.request.contextPath}/article">Article</a>
+    <br>
+    <a href="${pageContext.request.contextPath}/fake">Fake login</a>
     </body>
 </html>
