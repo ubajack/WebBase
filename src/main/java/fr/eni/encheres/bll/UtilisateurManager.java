@@ -6,6 +6,7 @@ import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.UtilisateurDAO;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class UtilisateurManager {
@@ -23,10 +24,22 @@ public class UtilisateurManager {
         List<Utilisateur> utilisateurs = utilisateurDAO.selectAll();
         return utilisateurs;
     }
-
-    public void insertUtilisateur(Utilisateur utilisateur) throws BLLException {
-        validerUtilisateur(utilisateur);
+    
+    public Utilisateur insertUtilisateur(String pseudo, String lastName, String name, String email, String telephone, String street,String postalCode,String city, String password,String passwordCheck) throws BLLException {
+        	//System.out.println(name);
+        	String tel = telephone.trim().length() != 0 ? telephone : null;//? opérateur ternaire qui fait un if sur une ligne 
+    	Utilisateur utilisateur = new Utilisateur(null, pseudo, lastName, name, email, tel, street, postalCode, city, password, false);
+        	//System.out.println(utilisateur);
+        	//System.out.println(password);
+        	//System.out.println(passwordCheck);
+        	
+        validerUtilisateur(utilisateur);	
+        	if(!password.equals(passwordCheck)) { // vérifie que les deux mots de passe sont identique
+    			throw new BLLException("Les 2 mots de passe ne correspondent pas !");
+        	};   		
+        	System.out.println("après la vérification" + utilisateur);
         utilisateurDAO.insert(utilisateur);
+        return utilisateur;
     }
     public void selectUtilisateurById(Utilisateur utilisateur) throws BLLException {
         utilisateurDAO.selectById(utilisateur.getNoUtilisateur());
@@ -51,7 +64,8 @@ public class UtilisateurManager {
     private void validerUtilisateur(Utilisateur utilisateur) throws BLLException {
         boolean valide = true;
         StringBuffer sb = new StringBuffer();
-
+        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"; //Regex pour valider une email
+        Pattern pattern = Pattern.compile(emailRegex);
 
         if(utilisateur==null){
             throw new BLLException("Retrait null");
@@ -84,7 +98,7 @@ public class UtilisateurManager {
         System.out.println(utilisateur.getPrenom());
 
         //Utilisation d'un regex pour vérifier si l'email correspond au format.
-        if(utilisateur.getEmail() == null || !utilisateur.getEmail().matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
+        if(utilisateur.getEmail() == null || !pattern.matcher(utilisateur.getEmail()).find()){//vérifie que l'email est correcte 
             sb.append("L'email de l'utilisateur est obligatoire, et doit être valide.\n");
             valide = false;
             System.out.println("email"+valide);
@@ -98,10 +112,9 @@ public class UtilisateurManager {
         }
 
         //Utilisation d'un regex pour vérifier si le téléphone correspondre au format téléphone français.
-        if (!utilisateur.getTelephone().matches("(0|\\+33|0033)[1-9][0-9]{8}")) {
-            sb.append("Le téléphone doit correspondre au format français.\n");
-            valide = false;
-            System.out.println("telephone"+valide);
+        if ((utilisateur.getTelephone() != null && utilisateur.getTelephone().trim().length() != 0)  && !utilisateur.getTelephone().matches("(0|\\+33|0033)[1-9][0-9]{8}")) {
+        	sb.append("Le téléphone doit correspondre au format français.\n");
+        	valide = false;
 
         }
 
