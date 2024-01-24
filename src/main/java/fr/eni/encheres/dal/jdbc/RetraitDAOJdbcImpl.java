@@ -1,8 +1,10 @@
 package fr.eni.encheres.dal.jdbc;
 
+import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Retrait;
-import fr.eni.encheres.dal.ConnectionProvider;
-import fr.eni.encheres.dal.RetraitDAO;
+import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,10 +13,11 @@ import java.util.List;
 public class RetraitDAOJdbcImpl implements RetraitDAO {
 
     private static final String INSERT = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) values (?,?,?,?)";
-    private static final String GET_BY_ID = "SELECT * from RETRAITS where no_article=?";
+    private static final String GET_BY_ID = "SELECT * from RETRAITS where no_retrait=?";
     private static final String SELECT_ALL = "SELECT * RETRAITS";
-    private static final String UPDATE = "UPDATE CATEGORIES set rue=?, code_postal=?, ville=? where no_article=?";
-    private static final String DELETE = "DELETE CATEGORIES where no_article=?";
+    private static final String UPDATE = "UPDATE RETRAITS  set no_article =?, set rue=?, code_postal=?, ville=? where no_retrait=?";
+    private static final String DELETE = "DELETE RETRAITS where no_retrait=?";
+    private final ArticleVenduDAO articleVenduDAO = DAOFactory.getArticleVenduDAO();
 
     @Override
     public Retrait selectById(Integer noRetrait) {
@@ -31,10 +34,12 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
         ResultSet rs = pstmt.executeQuery();
 
         if (rs.next()) {
+            ArticleVendu articleVendu = articleVenduDAO.selectById(rs.getInt("no_article"));
             retrait = new Retrait();
             retrait.setRue(rs.getString("rue"));
             retrait.setCodePostal(rs.getString("code_postal"));
             retrait.setVille(rs.getString("ville"));
+            retrait.setArticle(articleVendu);
         }
 
     } catch(
@@ -48,6 +53,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
     @Override
     public List<Retrait> selectAll() {
+        Retrait a = null;
         List<Retrait> retrait = new ArrayList<>();
         try (Connection connection = ConnectionProvider.getConnection();
              Statement pstmt = connection.createStatement()) {
@@ -55,7 +61,10 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
             ResultSet rs = pstmt.executeQuery(SELECT_ALL);
 
             while(rs.next()) {
-                retrait.add(getRetraitFromRs(rs));
+                ArticleVendu articleVendu = articleVenduDAO.selectById(rs.getInt("no_article"));
+                a = new Retrait(rs.getInt("no_retrait"),rs.getString("rue"),rs.getString("code_postal"),rs.getString("ville"),articleVendu);
+
+                retrait.add(a);
             }
 
         } catch (SQLException e) {
@@ -65,19 +74,13 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
         return retrait;
     }
 
-    private Retrait getRetraitFromRs(ResultSet rs) throws SQLException {
-
-        Retrait retrait = null;
-        retrait = new Retrait(rs.getInt("no_article"),rs.getString("rue"),rs.getString("code_postal"),rs.getString("ville") );
-        return retrait;
-    }
 
     @Override
     public Retrait insert(Retrait retrait) {
         try (Connection connection = ConnectionProvider.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(INSERT)) {
+             PreparedStatement pstmt = connection.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setInt(1, retrait.getNoRetrait());
+            pstmt.setInt(1, retrait.getArticle().getNoArticle());
             pstmt.setString(2, retrait.getRue());
             pstmt.setString(3, retrait.getCodePostal());
             pstmt.setString(4, retrait.getVille());
@@ -100,11 +103,11 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
     public void update(Retrait retrait) {
         try (Connection connection = ConnectionProvider.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
-
-            pstmt.setInt(4, retrait.getNoRetrait());
-            pstmt.setString(1, retrait.getRue());
-            pstmt.setString(2, retrait.getCodePostal());
-            pstmt.setString(3, retrait.getVille());
+            pstmt.setInt(1, retrait.getArticle().getNoArticle());
+            pstmt.setString(2, retrait.getRue());
+            pstmt.setString(3, retrait.getCodePostal());
+            pstmt.setString(4, retrait.getVille());
+            pstmt.setInt(5, retrait.getNoRetrait());
 
         }catch (SQLException e) {
             throw new RuntimeException(e);

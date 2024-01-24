@@ -6,6 +6,7 @@ import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.EnchereDAO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class EnchereManager {
@@ -51,7 +52,7 @@ public class EnchereManager {
         if(enchere==null){
             throw new BLLException("Categorie null");
         }
-        if(enchere.getDateEnchere()==null || !enchere.getDateEnchere().equals(LocalDate.now())) {
+        if(enchere.getDateEnchere()==null || enchere.getDateEnchere().isAfter(LocalDateTime.now())) {
             sb.append("La date de l'encheres est obligatoire et ne pas être supérieur a la date du jour.\n");
             valide = false;
         }

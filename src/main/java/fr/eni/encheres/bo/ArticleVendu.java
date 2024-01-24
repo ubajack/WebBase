@@ -21,7 +21,10 @@ public class ArticleVendu {
 	//Constructeurs
 	public ArticleVendu() {}
 
-	
+	public ArticleVendu(Integer noArticle) {
+		super();
+		this.noArticle = noArticle;
+	}
 	public ArticleVendu(String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			int miseAPrix, int prixVente, Categorie categorieArticle, Utilisateur utilisateur) {
 		super();
@@ -49,6 +52,18 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 
 	}
+	public ArticleVendu(Integer noArticle, String nom, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+						int miseAPrix, int prixVente) {
+		super();
+		this.noArticle = noArticle;
+		this.nom = nom;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+	}
+
 
 	public Integer getNoArticle() {
 		return noArticle;

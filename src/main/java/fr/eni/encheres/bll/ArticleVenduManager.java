@@ -31,16 +31,18 @@ public class ArticleVenduManager {
         articleVenduDAO.selectById(articleVendu.getNoArticle());
     }
 
-    public void updateArticleVendu(ArticleVendu articleVendu) throws BLLException {
+    public ArticleVendu updateArticleVendu(ArticleVendu articleVendu) throws BLLException {
         validerArticleVendu(articleVendu);
         articleVenduDAO.update(articleVendu);
+        return articleVendu;
     }
 
-    public void deleteArticleVendu(ArticleVendu articleVendu) throws BLLException {
+    public ArticleVendu deleteArticleVendu(ArticleVendu articleVendu) throws BLLException {
         if( articleVendu == null|| articleVendu.getNoArticle()==null) {
             throw new BLLException("Erreur lors de la suppression, l'articleVendu ou son ID est null.");
         }
         articleVenduDAO.delete(articleVendu.getNoArticle());
+        return articleVendu;
     }
 
 
@@ -60,7 +62,7 @@ public class ArticleVenduManager {
             sb.append("La description de l'article est obligatoire et ne pas depasser 300 caractères.\n");
             valide = false;
         }
-        if(articleVendu.getDateDebutEncheres()==null || articleVendu.getDateDebutEncheres().equals(LocalDate.now())) {
+        if(articleVendu.getDateDebutEncheres()==null || articleVendu.getDateDebutEncheres().isAfter(LocalDate.now())) {
             sb.append("La date de début des encheres est obligatoire et ne pas être supérieur a la date du jour.\n");
             valide = false;
         }
