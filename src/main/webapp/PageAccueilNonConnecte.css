@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+header {
+    justify-content: center;
+    align-items: center;
+    background-color: #81a7c0;
+    color: #ffffff;
+    padding: 10px;
+}
+
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 150%;
+}
+
+h2 {
+    font-size: 120%;
+    text-decoration: underline;
+    margin-left: 15px;
+}
+
+h3 {
+    font-size: 80%;
+    margin-left: 30px;
+}
+
+input {
+    width: 7%;
+    padding: 2px;
+    margin-top: 2px;
+}
+
+footer {
+    display: right;
+    justify-content: right;
+    padding: 2px;
+    align-items: center;
+    background-color: #81a7c0;
+    color: #ffffff;
+    font-style: italic;
+}
+
+p {
+    font-size: 150%;
+    margin-left: 10px;
+}
+
+span {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+}
+
+.retrait {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 80%;
+    margin-left: 20px;
+}
+
+.italic-text {
+    font-style: italic;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 90%;
+}
+
+button {
+    padding: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+  
+#navigation {
+    text-align: right;
+    margin-top: 0px;
+    margin-right: 20px;
+}
+
+#navigation a {
+    margin-left: 10px; /* Espacement entre les liens */
+    text-decoration: none;
+    color: #0840da;
+    text-decoration: underline;
+}
+
+
+#search-input {
+    padding: 8px;
+    width: 210px;
+    font-size: 14px;
+    border-radius: 18px; /* Bords arrondis pour le champ de recherche */
+}
+
+
+.cadre-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.cadre {
+    width: 48%;
+    background-color: rgba(63, 67, 68, 0.349);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+img {
+    height: 200px;     
+    width: calc(50% - 4px); /* Prendre à peine moins de la moitié de la largeur du cadre (pour la bordure) */
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: left; /* Aligner l'image à gauche */
+    margin-right: 10px; /* Espace entre l'image et le texte */
+}
+
+.texte {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+}
+
+.texte p {
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+.texte .first-line {
+    text-decoration: underline; /* Pour souligner que la 1ère ligne de chaque descriptif */
+    font-weight: bold;
+}

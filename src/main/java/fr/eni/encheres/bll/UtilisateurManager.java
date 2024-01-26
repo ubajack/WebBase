@@ -64,8 +64,6 @@ public class UtilisateurManager {
     private void validerUtilisateur(Utilisateur utilisateur) throws BLLException {
         boolean valide = true;
         StringBuffer sb = new StringBuffer();
-        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"; //Regex pour valider une email
-        Pattern pattern = Pattern.compile(emailRegex);
 
         if(utilisateur==null){
             throw new BLLException("Retrait null");
@@ -98,7 +96,7 @@ public class UtilisateurManager {
         System.out.println(utilisateur.getPrenom());
 
         //Utilisation d'un regex pour vérifier si l'email correspond au format.
-        if(utilisateur.getEmail() == null || !pattern.matcher(utilisateur.getEmail()).find()){//vérifie que l'email est correcte 
+        if(utilisateur.getEmail() == null || !utilisateur.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){//vérifie que l'email est correcte
             sb.append("L'email de l'utilisateur est obligatoire, et doit être valide.\n");
             valide = false;
             System.out.println("email"+valide);

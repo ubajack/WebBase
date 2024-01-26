@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="seb.css">
+    <link rel="stylesheet" href="">
     <title>Création de compte</title>
 </head>
 
@@ -70,7 +70,7 @@
 
                         <br>
                         <br>
-                        
+
 						<div>
     					<input type="submit" value="Créer" />
 						</div>
@@ -78,21 +78,17 @@
                     </form>
 	
                     <div class="container">
+
                         <button class="button2">
-                            <a href=""> Créer </a>
-                        </button>
-                        <button class="button2">
-                            <a href="index.html">Annuler</a>
+                            <a href="">Annuler</a>
                         </button>
                     </div>
                 <br>
                 <br>
+<p>erreur:${erreur}</p>
 
             </section>
-</body>
-<p>1${pageContext.request.contextPath} </p>
-<p>2${request.contextPath}</p>
-<p>erreur:${erreur}</p>
+
 
 
 <footer>

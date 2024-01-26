@@ -74,7 +74,7 @@ public class ArticleVenduManager {
             sb.append("Le prix initial des encheres ne pas être inférieur ou égale à 0 ).\n");
             valide = false;
         }
-        if(articleVendu.getPrixVente()<=articleVendu.getMiseAPrix()){
+        if(articleVendu.getPrixVente()<articleVendu.getMiseAPrix()){
             sb.append("Le prix de vente des encheres ne pas être inférieur ou égale à 0 ).\n");
             valide = false;
         }

@@ -63,6 +63,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				Categorie categorie = categorieDAO.selectById(rs.getInt("no_categorie"));
 				a = new ArticleVendu(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres").toLocalDate(), rs.getDate("date_fin_encheres").toLocalDate(), rs.getInt("prix_initial"), rs.getInt("prix_vente"), categorie, utilisateur);
 				result.add(a);
+				System.out.println(utilisateur);
+				System.out.println(categorie);
+				System.out.println(a);
+
 			}
 		}
 		catch(Exception e) {

@@ -33,6 +33,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
             if(rs.next()) {
                 cat= new Categorie();
+                cat.setNoCategorie(rs.getInt("no_categorie"));
                 cat.setLibelle(rs.getString("libelle"));
             }
 
