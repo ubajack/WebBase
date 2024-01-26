@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Permet d'être responsive (pour smartphones, tablettes) : la largeur de la page doit être égale à la largeur de l'appareil (width=device-width), et l'échelle initiale de la page est définie à 1.0 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="page-encherir" content="Ceci est la page d'accueil de la plateforme de vente aux encheres de l'association"> <!-- intéressant pour le référencement -->
-    <link rel="stylesheet" href="PageAccueilNonConnecte.css">
+    <link rel="stylesheet" href="bene.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-q50NyzKTj7J8r6Rr5zfg7sS8UfTchXEBIsEwbUjB+0UgV3AdTYIDwROg+CPLGz48zynrViMFn9p3OxX5x/TbCw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- pour l'icône de loupe de la biblio Font Awesome -->
 
     <title>
@@ -73,6 +73,7 @@
 
 </form>
 
+<%--
         <div class="cadre-container">
             <div class="cadre">
                 <img src="\1-13_Page_Accueil_Non_Connecte\PCGamer.jpg" alt="Image 1">
@@ -116,6 +117,7 @@
                 </div>
             </div>
         </div>
+--%>
 
     </main>
 
